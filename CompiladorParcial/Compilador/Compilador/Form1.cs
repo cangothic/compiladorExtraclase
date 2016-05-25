@@ -1,4 +1,5 @@
 ﻿using Compilador.Analisis_Lexico;
+using Compilador.Analizador_Sintactico;
 using Compilador.Cache;
 using Compilador.Manejador_de_errores;
 using Compilador.Tabla_de_simbolos;
@@ -186,17 +187,33 @@ namespace Compilador
             }
             dataGridView1.Rows.Clear();
             dataGridView2.Rows.Clear();
+
+            llenarTablaSimbolos();
+            llenarTablaErrores();
+
+        }
+        private void llenarTablaSimbolos()
+        {
             List<ComponenteLexico> tabla = TablaDeSimbolos.obtenerInstancia().obtenerTablaSimbolos();
-            List<Error> tablaErrores = ManejadorErrores.obtenerInstancia().ObtenerErroresCompletos();
             for (int i = 0; i < tabla.Count; i++)
             {
                 dataGridView1.Rows.Add(tabla[i].lexema, tabla[i].categoria, tabla[i].numLinea, tabla[i].posicionInicial, tabla[i].posicionFinal);
             }
+        }
+        private void llenarTablaErrores()
+        {
+            List<Error> tablaErrores = ManejadorErrores.obtenerInstancia().ObtenerErroresCompletos();
+
             for (int i = 0; i < tablaErrores.Count; i++)
             {
                 dataGridView2.Rows.Add(tablaErrores[i].valorRecibido, tablaErrores[i].descripcionError, tablaErrores[i].valorEsperado, tablaErrores[i].tipoError, tablaErrores[i].numLinea, tablaErrores[i].posicionInicial, tablaErrores[i].posicionFinal);
             }
-
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            AnalizadorSintactico analizadorSintactico = new AnalizadorSintactico();
+            analizadorSintactico.Analizar();
+            llenarTablaErrores();
         }
     }
 }

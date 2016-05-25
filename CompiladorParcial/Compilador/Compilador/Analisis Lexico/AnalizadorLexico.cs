@@ -181,6 +181,11 @@ namespace Compilador.Analisis_Lexico
                         {
                             estadoActual = 36;
                         }
+                        else if (caracterActual.Equals(";"))
+                        {
+                            lexema += caracterActual;
+                            estadoActual = 38;
+                        }
                         else
                         {
                             estadoActual = 2;
@@ -199,13 +204,19 @@ namespace Compilador.Analisis_Lexico
                         break;
                     case 3:
                         devolverPuntero();
-                        componente = new ComponenteLexico();
+                        TablaPalabrasReservadas tpr = TablaPalabrasReservadas.obtenerInstancia();
+                        componente = tpr.obtenerPalabraReservada(lexema);
+                        if (!componente.esReservada)
+                        {
+                            componente = new ComponenteLexico();
+                
+                            componente.categoria = "IDENTIFICADOR";
+
+                        }
                         componente.lexema = lexema;
-                        componente.categoria = "IDENTIFICADOR";
                         componente.numLinea = numLineaActual;
                         componente.posicionInicial = puntero - lexema.Length;
                         componente.posicionFinal = puntero - 1;
-
 
                         continuarAnalisis = false;
 
@@ -461,7 +472,7 @@ namespace Compilador.Analisis_Lexico
                     case 23:
                         componente = new ComponenteLexico();
                         componente.lexema = lexema;
-                        componente.categoria = "MAYOR O IGUAL";
+                        componente.categoria = "MAYOR IGUAL";
                         componente.numLinea = numLineaActual;
                         componente.posicionInicial = puntero - lexema.Length;
                         continuarAnalisis = false;
@@ -496,7 +507,7 @@ namespace Compilador.Analisis_Lexico
                     case 26:
                         componente = new ComponenteLexico();
                         componente.lexema = lexema;
-                        componente.categoria = "MENOR O IGUAL";
+                        componente.categoria = "MENOR IGUAL";
                         componente.numLinea = numLineaActual;
                         componente.posicionInicial = puntero - lexema.Length;
                         componente.posicionFinal = puntero - 1;
@@ -550,7 +561,7 @@ namespace Compilador.Analisis_Lexico
                         devolverPuntero();
                         componente = new ComponenteLexico();
                         componente.lexema = diferenteDummy;
-                        componente.categoria = "diferente dummy";
+                        componente.categoria = "DIFERENTE DUMMY";
                         componente.numLinea = numLineaActual;
                         componente.posicionInicial = puntero - lexema.Length;
                         componente.posicionFinal = puntero - 1;
@@ -577,7 +588,7 @@ namespace Compilador.Analisis_Lexico
                     case 34:
                         componente = new ComponenteLexico();
                         componente.lexema = lexema;
-                        componente.categoria = "PARENTESIS CIERRE";
+                        componente.categoria = "PARENTESIS CIERRA";
                         componente.numLinea = numLineaActual;
                         componente.posicionInicial = puntero - lexema.Length;
                         componente.posicionFinal = puntero - 1;
@@ -591,6 +602,15 @@ namespace Compilador.Analisis_Lexico
                         componente = new ComponenteLexico();
                         componente.lexema = lexema;
                         componente.categoria = "FIN DE ARCHIVO";
+                        componente.numLinea = numLineaActual;
+                        componente.posicionInicial = puntero - lexema.Length;
+                        componente.posicionFinal = puntero - 1;
+                        continuarAnalisis = false;
+                        break;
+                    case 38:
+                        componente = new ComponenteLexico();
+                        componente.lexema = lexema;
+                        componente.categoria = ";";
                         componente.numLinea = numLineaActual;
                         componente.posicionInicial = puntero - lexema.Length;
                         componente.posicionFinal = puntero - 1;
