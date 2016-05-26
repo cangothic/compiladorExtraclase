@@ -64,6 +64,10 @@ namespace Compilador.Analizador_Sintactico
                 Avanzar("FIN");
                 Avanzar("PARA");
             }
+            else
+            {
+                //implementar aqui!
+            }
         }
         private void A()
         {
@@ -170,8 +174,25 @@ namespace Compilador.Analizador_Sintactico
         }
         private void sentencias()
         {
-            sentencia();
-            sentenciasPrima();
+            if ("IDENTIFICADOR".Equals(preAnalisis.categoria) || "ESCRIBIR".Equals(preAnalisis.categoria) || "LEER".Equals(preAnalisis.categoria))
+            {
+                sentencia();
+                sentenciasPrima();
+            }
+            else
+            {
+                Error error = new Error();
+                error.valorRecibido = preAnalisis.lexema;
+                error.posicionInicial = preAnalisis.posicionInicial;
+                error.posicionFinal = preAnalisis.posicionFinal;
+                error.numLinea = preAnalisis.numLinea;
+                error.valorEsperado = "IDENTIFICADOR | ESCRIBIR | LEER";
+                error.descripcionError = "COMPONETE RECIBIDO NO VÁLIDO, ESPERABA "+error.valorEsperado+" NO ES POSIBLE RECUPERARSE DE ESTE ERROR";
+                error.tipoError = "SEMANTICO";
+                ManejadorErrores.obtenerInstancia().adicionarError(error);
+                throw new Exception("ERROR FATAL, SINTACTICO " + error.descripcionError);
+            }
+ 
         }
         private void sentenciasPrima()
         {
@@ -271,6 +292,7 @@ namespace Compilador.Analizador_Sintactico
                 error.descripcionError = "ESPERABA " + categoria + " PERO RECIBI " + preAnalisis.categoria;
                 error.tipoError = "SINTACTICO";
                 ManejadorErrores.obtenerInstancia().adicionarError(error);
+                preAnalisis = analizadorLexico.analizar();
                 throw new Exception("ERROR FATAL, SINTACTICO "+error.descripcionError);
             }
         }

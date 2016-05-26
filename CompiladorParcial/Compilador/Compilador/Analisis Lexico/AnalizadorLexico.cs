@@ -338,7 +338,7 @@ namespace Compilador.Analisis_Lexico
                         devolverPuntero();
                         componente = new ComponenteLexico();
                         componente.lexema = numeroDecimalDummie;
-                        componente.categoria = "decimal dummy";
+                        componente.categoria = "DECIMAL";
                         componente.numLinea = numLineaActual;
                         componente.posicionInicial = puntero - lexema.Length;
                         componente.posicionFinal = puntero - 1;
@@ -349,7 +349,7 @@ namespace Compilador.Analisis_Lexico
                         errorNumeroDecimal.tipoError = "LEXICO";
                         errorNumeroDecimal.valorEsperado = "6";
                         errorNumeroDecimal.valorRecibido = caracterActual;
-                        errorNumeroDecimal.descripcionError = "se esperaba un digito";
+                        errorNumeroDecimal.descripcionError = "se esperaba un decimal valido";
                         ManejadorErrores.obtenerInstancia().adicionarError(errorNumeroDecimal);
                         continuarAnalisis = false;
                         break;
@@ -442,7 +442,7 @@ namespace Compilador.Analisis_Lexico
                         devolverPuntero();
                         componente = new ComponenteLexico();
                         componente.lexema = asignacionDummy;
-                        componente.categoria = "asignacion dummy";
+                        componente.categoria = "ASIGNACION";
                         componente.numLinea = numLineaActual;
                         componente.posicionInicial = puntero - lexema.Length;
                         componente.posicionFinal = puntero - 1;
@@ -453,7 +453,7 @@ namespace Compilador.Analisis_Lexico
                         errorAsignacion.tipoError = "LEXICO";
                         errorAsignacion.valorEsperado = "=";
                         errorAsignacion.valorRecibido = caracterActual;
-                        errorAsignacion.descripcionError = "se esperaba =";
+                        errorAsignacion.descripcionError = "se esperaba asignación valida";
                         ManejadorErrores.obtenerInstancia().adicionarError(errorAsignacion);
                         continuarAnalisis = false;
                         break;
@@ -561,7 +561,7 @@ namespace Compilador.Analisis_Lexico
                         devolverPuntero();
                         componente = new ComponenteLexico();
                         componente.lexema = diferenteDummy;
-                        componente.categoria = "DIFERENTE DUMMY";
+                        componente.categoria = "DIFERENTE";
                         componente.numLinea = numLineaActual;
                         componente.posicionInicial = puntero - lexema.Length;
                         componente.posicionFinal = puntero - 1;
