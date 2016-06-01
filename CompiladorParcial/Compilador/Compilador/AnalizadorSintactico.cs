@@ -13,7 +13,6 @@ namespace Compilador.Analizador_Sintactico
     {
         private AnalizadorLexico analizadorLexico;
         private ComponenteLexico preAnalisis;
-
         public void Analizar()
         {
             try
@@ -66,7 +65,17 @@ namespace Compilador.Analizador_Sintactico
             }
             else
             {
-                //implementar aqui!
+                Error error = new Error();
+                error.valorRecibido = preAnalisis.lexema;
+                error.posicionInicial = preAnalisis.posicionInicial;
+                error.posicionFinal = preAnalisis.posicionFinal;
+                error.numLinea = preAnalisis.numLinea;
+                error.valorEsperado = "PARA";
+                error.descripcionError = "COMPONETE RECIBIDO NO VÁLIDO, YA QUE RECIBÍ " + preAnalisis.categoria + "-->" + preAnalisis.lexema;
+                error.tipoError = "SINTACTICO";
+                ManejadorErrores.obtenerInstancia().adicionarError(error);
+                throw new Exception("ERROR FATAL, SINTACTICO " + error.descripcionError);
+
             }
         }
         private void A()
@@ -101,9 +110,9 @@ namespace Compilador.Analizador_Sintactico
                 error.descripcionError = "COMPONETE RECIBIDO NO VÁLIDO, YA QUE RECIBÍ " + preAnalisis.categoria + "-->" + preAnalisis.lexema;
                 error.tipoError = "SINTACTICO";
                 ManejadorErrores.obtenerInstancia().adicionarError(error);
-
-                preAnalisis.categoria = "IDENTIFICADOR DUMMY";
-                Avanzar(preAnalisis.categoria);
+                throw new Exception("ERROR FATAL, SINTACTICO " + error.descripcionError);
+                //preAnalisis.categoria = "IDENTIFICADOR DUMMY";
+                //Avanzar(preAnalisis.categoria);
             }
         }
         private void limiteinicial()
@@ -123,9 +132,9 @@ namespace Compilador.Analizador_Sintactico
                 error.descripcionError = "COMPONETE RECIBIDO NO VÁLIDO, YA QUE RECIBÍ " + preAnalisis.categoria + "-->" + preAnalisis.lexema;
                 error.tipoError = "SINTACTICO";
                 ManejadorErrores.obtenerInstancia().adicionarError(error);
-
-                preAnalisis.categoria = "ENTERO DUMMY";
-                Avanzar(preAnalisis.categoria);
+                throw new Exception("ERROR FATAL, SINTACTICO " + error.descripcionError);
+                //preAnalisis.categoria = "ENTERO DUMMY";
+                //Avanzar(preAnalisis.categoria);
             }
         }
         private void limitefinal()
@@ -145,9 +154,11 @@ namespace Compilador.Analizador_Sintactico
                 error.descripcionError = "COMPONETE RECIBIDO NO VÁLIDO, YA QUE RECIBÍ " + preAnalisis.categoria + "-->" + preAnalisis.lexema;
                 error.tipoError = "SINTACTICO";
                 ManejadorErrores.obtenerInstancia().adicionarError(error);
+                throw new Exception("ERROR FATAL, SINTACTICO " + error.descripcionError);
 
-                preAnalisis.categoria = "ENTERO DUMMY";
-                Avanzar(preAnalisis.categoria);
+
+                //preAnalisis.categoria = "ENTERO DUMMY";
+               // Avanzar(preAnalisis.categoria);
             }
         }
         private void valor()
@@ -167,9 +178,10 @@ namespace Compilador.Analizador_Sintactico
                 error.descripcionError = "COMPONETE RECIBIDO NO VÁLIDO, YA QUE RECIBÍ " + preAnalisis.categoria + "-->" + preAnalisis.lexema;
                 error.tipoError = "SINTACTICO";
                 ManejadorErrores.obtenerInstancia().adicionarError(error);
+                throw new Exception("ERROR FATAL, SINTACTICO " + error.descripcionError);
 
-                preAnalisis.categoria = "ENTERO DUMMY";
-                Avanzar(preAnalisis.categoria);
+//                preAnalisis.categoria = "ENTERO DUMMY";
+//                Avanzar(preAnalisis.categoria);
             }
         }
         private void sentencias()
@@ -239,12 +251,13 @@ namespace Compilador.Analizador_Sintactico
                 error.descripcionError = "COMPONETE RECIBIDO NO VÁLIDO, YA QUE RECIBÍ " + preAnalisis.categoria + "-->" + preAnalisis.lexema;
                 error.tipoError = "SINTACTICO";
                 ManejadorErrores.obtenerInstancia().adicionarError(error);
+                throw new Exception("ERROR FATAL, SINTACTICO " + error.descripcionError);
 
-                preAnalisis.categoria = "IDENTIFICADOR DUMMY";
-                Avanzar(preAnalisis.categoria);
-                Avanzar("ASIGNACION");
-                expresion();
-                Avanzar(";");
+               // preAnalisis.categoria = "IDENTIFICADOR DUMMY";
+               // Avanzar(preAnalisis.categoria);
+               // Avanzar("ASIGNACION");
+               // expresion();
+               // Avanzar(";");
             }
         }
         private void expresion()
@@ -270,9 +283,10 @@ namespace Compilador.Analizador_Sintactico
                 error.descripcionError = "COMPONETE RECIBIDO NO VÁLIDO, YA QUE RECIBÍ " + preAnalisis.categoria + "-->" + preAnalisis.lexema;
                 error.tipoError = "SINTACTICO";
                 ManejadorErrores.obtenerInstancia().adicionarError(error);
+                throw new Exception("ERROR FATAL, SINTACTICO " + error.descripcionError);
 
-                preAnalisis.categoria = "SUMA DUMMY";
-                Avanzar(preAnalisis.categoria);
+               // preAnalisis.categoria = "SUMA DUMMY";
+               // Avanzar(preAnalisis.categoria);
             }
         }
         private void Avanzar(String categoria)
