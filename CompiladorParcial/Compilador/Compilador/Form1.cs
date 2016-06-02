@@ -214,6 +214,7 @@ namespace Compilador
             AnalizadorSintactico analizadorSintactico = new AnalizadorSintactico();
             analizadorSintactico.Analizar();
             llenarTablaErrores();
+            llenarTablaSimbolos();
         }
     }
 }
